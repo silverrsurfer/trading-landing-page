@@ -1,7 +1,12 @@
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import { CircleAlert, CircleCheck, Clock3, Info } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  Alert,
+  AlertDescription,
+  buttonVariants,
+  Card,
+  CardContent,
+} from "@/modules/design-system";
 
 type ResultAction = {
   label: string;
@@ -16,6 +21,13 @@ export type ResultPageProps = {
   primaryAction: ResultAction;
 };
 
+const SEVERITY_ICON = {
+  success: CircleCheck,
+  info: Info,
+  warning: Clock3,
+  error: CircleAlert,
+} as const;
+
 export function ResultPage({
   severity,
   eyebrow,
@@ -23,22 +35,25 @@ export function ResultPage({
   description,
   primaryAction,
 }: ResultPageProps) {
+  const SeverityIcon = SEVERITY_ICON[severity];
+
   return (
     <main className="flex min-h-screen items-center justify-center px-4 py-16">
-      <Paper className="w-full max-w-xl p-6 sm:p-10" elevation={4}>
-        <Alert severity={severity} className="mb-6">
-          {eyebrow}
-        </Alert>
-        <Typography component="h1" variant="h3" className="mb-4">
-          {title}
-        </Typography>
-        <Typography color="text.secondary" className="mb-8">
-          {description}
-        </Typography>
-        <Button variant="contained" size="large" href={primaryAction.href}>
-          {primaryAction.label}
-        </Button>
-      </Paper>
+      <Card className="w-full max-w-xl bg-card/95 py-0 shadow-xl ring-1 ring-foreground/10">
+        <CardContent className="p-6 sm:p-10">
+          <Alert className="mb-8 bg-muted/70">
+            <SeverityIcon />
+            <AlertDescription>{eyebrow}</AlertDescription>
+          </Alert>
+          <h1 className="max-w-lg text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+            {title}
+          </h1>
+          <p className="mt-4 max-w-lg leading-7 text-muted-foreground">{description}</p>
+          <a href={primaryAction.href} className={cn(buttonVariants({ size: "lg" }), "mt-8")}>
+            {primaryAction.label}
+          </a>
+        </CardContent>
+      </Card>
     </main>
   );
 }

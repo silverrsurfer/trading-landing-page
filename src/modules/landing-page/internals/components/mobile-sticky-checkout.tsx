@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import { Card, CardContent } from "@/modules/design-system";
 import { getOfferBillingLabel } from "@/modules/offer";
 import { CheckoutForm } from "./checkout-form";
 
@@ -31,12 +30,14 @@ export function MobileStickyCheckout() {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 p-3 sm:hidden">
-      <Paper className="mx-auto max-w-sm p-3" elevation={8}>
-        <CheckoutForm fullWidth />
-        <Typography color="text.secondary" variant="caption" className="mt-1 block text-center">
-          {getOfferBillingLabel()} · Test mode
-        </Typography>
-      </Paper>
+      <Card className="mx-auto max-w-sm bg-card/95 py-0 shadow-2xl backdrop-blur-xl">
+        <CardContent className="p-3">
+          <CheckoutForm fullWidth />
+          <p className="mt-2 text-center text-xs text-muted-foreground">
+            {getOfferBillingLabel()} · Test mode
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

@@ -1,15 +1,18 @@
-"use client";
-
-import { useState } from "react";
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutlined";
+import { CircleAlert, PlayCircle } from "lucide-react";
+import {
+  Alert,
+  AlertDescription,
+  Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Separator,
+} from "@/modules/design-system";
 
 const BREAKDOWN_CHAPTERS = [
   ["0:00", "Plan", "Premarket volume and structure put the stock on the watchlist."],
@@ -19,48 +22,43 @@ const BREAKDOWN_CHAPTERS = [
 ] as const;
 
 export function FreeBreakdownDialog() {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <>
-      <Button
-        variant="outlined"
-        size="large"
-        className="mt-7"
-        startIcon={<PlayCircleOutlineIcon />}
-        onClick={() => setIsOpen(true)}
-      >
+    <Dialog>
+      <DialogTrigger render={<Button variant="outline" size="lg" className="mt-7" />}>
+        <PlayCircle data-icon="inline-start" />
         Watch a Free Trade Breakdown
-      </Button>
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)} fullWidth maxWidth="sm">
-        <DialogTitle>Complete trade breakdown</DialogTitle>
-        <DialogContent>
-          <Alert severity="info" className="mb-5">
-            Illustrative prototype lesson. No trade or performance result is being claimed.
-          </Alert>
-          <div className="grid gap-4">
-            {BREAKDOWN_CHAPTERS.map(([time, title, description], index) => (
-              <div key={time}>
-                {index > 0 ? <Divider className="mb-4" /> : null}
-                <div className="flex gap-4">
-                  <Typography color="primary" className="w-12 shrink-0 font-mono">
-                    {time}
-                  </Typography>
-                  <div>
-                    <Typography variant="subtitle1">{title}</Typography>
-                    <Typography color="text.secondary" variant="body2">
-                      {description}
-                    </Typography>
-                  </div>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
+          <DialogTitle className="text-xl">Complete trade breakdown</DialogTitle>
+          <DialogDescription>
+            See the plan, confirmation, invalidation, and review in one illustrative lesson.
+          </DialogDescription>
+        </DialogHeader>
+        <Alert className="bg-muted/70">
+          <CircleAlert />
+          <AlertDescription>
+            Prototype content only. No trade or performance result is being claimed.
+          </AlertDescription>
+        </Alert>
+        <div className="grid">
+          {BREAKDOWN_CHAPTERS.map(([time, title, description], index) => (
+            <div key={time}>
+              {index > 0 ? <Separator /> : null}
+              <div className="grid grid-cols-[3rem_1fr] gap-4 py-4">
+                <p className="font-mono text-sm text-muted-foreground">{time}</p>
+                <div>
+                  <p className="font-medium">{title}</p>
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">{description}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setIsOpen(false)}>Close</Button>
-        </DialogActions>
-      </Dialog>
-    </>
+            </div>
+          ))}
+        </div>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

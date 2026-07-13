@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
+import { Inter } from "next/font/google";
+import { cn } from "@/lib/utils";
 import { OFFER, getOfferDeliveryLabel } from "@/modules/offer";
-import { AppThemeProvider } from "@/modules/ui";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: `${OFFER.membershipName} | Learn the Decision Process`,
@@ -11,12 +13,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <AppThemeProvider>{children}</AppThemeProvider>
-        </AppRouterCacheProvider>
-      </body>
+    <html lang="en" className={cn("font-sans", inter.variable)}>
+      <body className="min-h-dvh antialiased">{children}</body>
     </html>
   );
 }

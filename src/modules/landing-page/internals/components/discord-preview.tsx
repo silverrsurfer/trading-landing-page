@@ -1,75 +1,75 @@
-import Avatar from "@mui/material/Avatar";
-import Chip from "@mui/material/Chip";
-import Divider from "@mui/material/Divider";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import TagIcon from "@mui/icons-material/Tag";
+import { Hash } from "lucide-react";
+import {
+  Avatar,
+  AvatarFallback,
+  Badge,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Separator,
+} from "@/modules/design-system";
 import { OFFER } from "@/modules/offer";
 import { DISCORD_CHANNELS } from "../content";
 
 export function DiscordPreview() {
   return (
-    <Paper className="overflow-hidden" elevation={6}>
-      <div className="flex items-center justify-between gap-3 p-4">
-        <div className="flex items-center gap-3">
-          <Avatar>{OFFER.trader.initials}</Avatar>
-          <div>
-            <Typography variant="subtitle1">Inside {OFFER.membershipName} today</Typography>
-            <Typography color="text.secondary" variant="body2">
-              {OFFER.trader.name} · illustrative preview
-            </Typography>
+    <Card className="rotate-[0.4deg] bg-card/95 py-0 shadow-2xl shadow-foreground/10 ring-1 ring-foreground/10">
+      <CardHeader className="flex flex-row items-center justify-between gap-3 p-5">
+        <div className="flex min-w-0 items-center gap-3">
+          <Avatar size="lg">
+            <AvatarFallback>{OFFER.trader.initials}</AvatarFallback>
+          </Avatar>
+          <div className="min-w-0">
+            <CardTitle className="truncate">Inside {OFFER.membershipName} today</CardTitle>
+            <CardDescription>{OFFER.trader.name} · illustrative preview</CardDescription>
           </div>
         </div>
-        <Chip label="DEMO" size="small" color="warning" />
+        <Badge variant="outline">Demo</Badge>
+      </CardHeader>
+      <Separator />
+      <div className="flex items-center gap-2 px-5 py-3 text-sm font-medium">
+        <Hash className="size-4 text-muted-foreground" />
+        {DISCORD_CHANNELS.dailyPlan.name.slice(1)}
       </div>
-      <Divider />
-      <div className="flex items-center gap-2 px-4 py-3">
-        <TagIcon fontSize="small" />
-        <Typography variant="subtitle2">{DISCORD_CHANNELS.dailyPlan.name.slice(1)}</Typography>
-      </div>
-      <Divider />
-      <div className="p-5">
+      <Separator />
+      <CardContent className="p-5">
         <div className="mb-4 flex items-center gap-3">
-          <Avatar className="h-9 w-9">{OFFER.trader.initials}</Avatar>
+          <Avatar>
+            <AvatarFallback>{OFFER.trader.initials}</AvatarFallback>
+          </Avatar>
           <div>
-            <Typography variant="subtitle2">{OFFER.trader.name}</Typography>
-            <Typography color="text.secondary" variant="caption">
-              Today at 8:42 a.m.
-            </Typography>
+            <p className="text-sm font-medium">{OFFER.trader.name}</p>
+            <p className="text-xs text-muted-foreground">Today at 8:42 a.m.</p>
           </div>
         </div>
-        <Typography variant="h6" className="mb-4">
-          Watching above 4.80
-        </Typography>
+        <p className="mb-5 text-xl font-semibold tracking-tight">Watching above 4.80</p>
         <dl className="grid gap-4">
-          <div>
-            <Typography component="dt" color="text.secondary" variant="caption">
-              WHY IT IS ON THE LIST
-            </Typography>
-            <Typography component="dd">
-              Strong premarket volume and a clean first-pullback structure.
-            </Typography>
-          </div>
-          <div>
-            <Typography component="dt" color="text.secondary" variant="caption">
-              CONFIRMATION
-            </Typography>
-            <Typography component="dd">Price reclaims VWAP and holds above 4.80.</Typography>
-          </div>
-          <div>
-            <Typography component="dt" color="text.secondary" variant="caption">
-              INVALIDATION
-            </Typography>
-            <Typography component="dd">
-              Price loses 4.55. No confirmation means no trade.
-            </Typography>
-          </div>
+          <PreviewItem label="Why it is on the list">
+            Strong premarket volume and a clean first-pullback structure.
+          </PreviewItem>
+          <PreviewItem label="Confirmation">Price reclaims VWAP and holds above 4.80.</PreviewItem>
+          <PreviewItem label="Invalidation">
+            Price loses 4.55. No confirmation means no trade.
+          </PreviewItem>
         </dl>
-      </div>
-      <Divider />
-      <Typography color="text.secondary" variant="body2" className="p-4">
+      </CardContent>
+      <Separator />
+      <p className="p-5 text-sm leading-6 text-muted-foreground">
         Every setup includes the thesis, confirmation, invalidation, and review—not only an entry.
-      </Typography>
-    </Paper>
+      </p>
+    </Card>
+  );
+}
+
+function PreviewItem({ label, children }: Readonly<{ label: string; children: React.ReactNode }>) {
+  return (
+    <div className="grid gap-1">
+      <dt className="text-[0.68rem] font-semibold tracking-[0.15em] text-muted-foreground uppercase">
+        {label}
+      </dt>
+      <dd className="text-sm leading-6">{children}</dd>
+    </div>
   );
 }

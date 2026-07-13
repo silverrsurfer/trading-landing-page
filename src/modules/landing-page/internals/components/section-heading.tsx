@@ -1,24 +1,23 @@
-import Typography from "@mui/material/Typography";
-
 type SectionHeadingProps = {
+  id?: string;
   eyebrow: string;
   title: string;
   description?: string;
 };
 
-export function SectionHeading({ eyebrow, title, description }: SectionHeadingProps) {
+export function SectionHeading({ id, eyebrow, title, description }: SectionHeadingProps) {
   return (
-    <div className="mb-10 max-w-3xl">
-      <Typography color="primary" variant="overline">
+    <div className="mb-12 max-w-3xl">
+      <p className="mb-4 text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
         {eyebrow}
-      </Typography>
-      <Typography component="h2" variant="h3" className="mb-3">
+      </p>
+      <h2 id={id} className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
         {title}
-      </Typography>
+      </h2>
       {description ? (
-        <Typography color="text.secondary" variant="h6">
+        <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
           {description}
-        </Typography>
+        </p>
       ) : null}
     </div>
   );

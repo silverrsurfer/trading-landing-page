@@ -1,16 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Button, Spinner } from "@/modules/design-system";
 import { OFFER } from "@/modules/offer";
 
 type CheckoutFormProps = {
   fullWidth?: boolean;
-  size?: "medium" | "large";
+  size?: "default" | "lg";
 };
 
-export function CheckoutForm({ fullWidth = false, size = "large" }: CheckoutFormProps) {
+export function CheckoutForm({ fullWidth = false, size = "lg" }: CheckoutFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
@@ -22,13 +21,12 @@ export function CheckoutForm({ fullWidth = false, size = "large" }: CheckoutForm
     >
       <Button
         type="submit"
-        variant="contained"
         size={size}
-        fullWidth={fullWidth}
+        className={fullWidth ? "w-full" : undefined}
         disabled={isSubmitting}
         aria-busy={isSubmitting}
-        startIcon={isSubmitting ? <CircularProgress size={18} color="inherit" /> : undefined}
       >
+        {isSubmitting ? <Spinner data-icon="inline-start" /> : null}
         {OFFER.ctaLabel}
       </Button>
     </form>
