@@ -28,4 +28,14 @@ describe("LandingPage section rhythm", () => {
     expect(methodSection).toContain("sm:min-h-44");
     expect(methodSection).toContain("lg:grid-cols-4");
   });
+
+  test("renders FAQ answers inside native disclosure controls", () => {
+    const markup = renderToStaticMarkup(<LandingPage />);
+    const faqSection = markup.match(/<section id="faq"[\s\S]*?<\/section>/)?.[0];
+
+    expect(faqSection?.match(/<details/g)).toHaveLength(7);
+    expect(faqSection).toContain(
+      "No. Every discussed setup includes context, confirmation, invalidation, and risk reasoning.",
+    );
+  });
 });

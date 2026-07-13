@@ -2,6 +2,7 @@ import Image from "next/image";
 import {
   BookOpenCheck,
   Check,
+  ChevronDown,
   CircleAlert,
   Clock3,
   ExternalLink,
@@ -10,10 +11,6 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
   Alert,
   AlertDescription,
   Badge,
@@ -422,18 +419,19 @@ export function LandingPage() {
               Review membership
             </a>
           </div>
-          <Accordion className="bg-card/80 ring-1 ring-foreground/10">
-            {FAQ_ITEMS.map((item, index) => (
-              <AccordionItem key={item.question} value={`question-${index + 1}`}>
-                <AccordionTrigger className="px-5 py-5 text-left text-base sm:px-6">
+          <div className="overflow-hidden rounded-2xl border bg-card/80 ring-1 ring-foreground/10">
+            {FAQ_ITEMS.map((item) => (
+              <details key={item.question} className="group not-last:border-b open:bg-muted/50">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-6 px-6 py-6 text-left font-sans text-base leading-6 font-medium transition-colors hover:bg-muted/30 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring [&::-webkit-details-marker]:hidden">
                   {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="max-w-3xl px-5 pb-6 leading-6 text-muted-foreground sm:px-6">
+                  <ChevronDown className="mt-0.5 size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
+                </summary>
+                <p className="max-w-3xl px-6 pb-6 font-sans leading-6 text-muted-foreground">
                   {item.answer}
-                </AccordionContent>
-              </AccordionItem>
+                </p>
+              </details>
             ))}
-          </Accordion>
+          </div>
         </div>
       </section>
 
