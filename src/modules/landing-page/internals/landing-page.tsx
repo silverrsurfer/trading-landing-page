@@ -24,7 +24,6 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  Separator,
 } from "@/modules/design-system";
 import { cn } from "@/lib/utils";
 import {
@@ -43,6 +42,7 @@ import { DiscordPreview } from "./components/discord-preview";
 import { FreeBreakdownDialog } from "./components/free-breakdown-dialog";
 import { MobileStickyCheckout } from "./components/mobile-sticky-checkout";
 import { SectionHeading } from "./components/section-heading";
+import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
 
 export function LandingPage() {
@@ -73,7 +73,7 @@ export function LandingPage() {
       >
         <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
           <div>
-            <Badge variant="outline" className="mb-6 bg-background/75">
+            <Badge variant="outline" className="mb-6 border-primary/25 bg-primary/8 text-primary">
               Paid {deliveryLabel} for developing stock traders
             </Badge>
             <h1
@@ -88,10 +88,13 @@ export function LandingPage() {
               from the market.
             </p>
             <div id="hero-checkout" className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
-              <CheckoutForm />
+              <CheckoutForm className="h-12 rounded-xl px-6 text-base shadow-lg shadow-primary/20 hover:-translate-y-0.5" />
               <a
                 href="#free-breakdown"
-                className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "h-12 rounded-xl px-6 text-base hover:-translate-y-0.5",
+                )}
               >
                 <PlayCircle data-icon="inline-start" />
                 Watch a free breakdown
@@ -162,9 +165,18 @@ export function LandingPage() {
             </Card>
           ))}
         </div>
-        <div className="mt-8">
-          <CheckoutForm />
-        </div>
+        <Card className="mt-6 border-primary/20 bg-primary/6 py-0 ring-primary/15">
+          <CardContent className="flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-lg font-semibold">Start with today’s plan, not another alert.</p>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+                Get immediate access to the latest replay, the daily watchlist, and the complete
+                member library.
+              </p>
+            </div>
+            <CheckoutForm className="h-12 rounded-xl px-6 text-base shadow-lg shadow-primary/20" />
+          </CardContent>
+        </Card>
       </section>
 
       <section id="free-breakdown" className={PAGE_SECTION} aria-labelledby="breakdown-title">
@@ -206,7 +218,7 @@ export function LandingPage() {
         </Card>
       </section>
 
-      <section className={PAGE_SECTION} aria-labelledby="discord-title">
+      <section id="discord-preview" className={PAGE_SECTION} aria-labelledby="discord-title">
         <SectionHeading
           id="discord-title"
           eyebrow="See what you are paying for"
@@ -278,94 +290,145 @@ export function LandingPage() {
       </section>
 
       <section id="pricing" className={PAGE_SECTION} aria-labelledby="pricing-title">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <SectionHeading
             id="pricing-title"
             eyebrow={`Simple ${billingInterval.adjective} membership`}
             title={`The complete ${OFFER.membershipName} for ${formatOfferPrice()} per ${billingInterval.period}.`}
           />
-          <Card className="bg-foreground py-0 text-background shadow-2xl shadow-foreground/15 ring-0">
-            <CardHeader className="p-7 sm:p-9">
-              <div className="flex flex-wrap items-start justify-between gap-5">
+          <Card className="relative overflow-hidden border-primary/30 bg-card/95 py-0 shadow-2xl shadow-black/30 ring-1 ring-primary/15">
+            <div className="pointer-events-none absolute -top-32 right-0 size-80 rounded-full bg-primary/10 blur-3xl" />
+            <CardHeader className="relative border-b border-primary/15 p-7 sm:p-10">
+              <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
                 <div>
-                  <CardTitle className="text-xl text-background">{OFFER.membershipName}</CardTitle>
-                  <CardDescription className="mt-2 text-background/60">
-                    Full access. Cancel on your schedule.
+                  <Badge className="mb-5">Built for part-time traders</Badge>
+                  <CardTitle className="text-2xl font-semibold sm:text-3xl">
+                    {OFFER.membershipName}
+                  </CardTitle>
+                  <CardDescription className="mt-3 max-w-lg text-base leading-7">
+                    Full access to the daily workflow, live room, recordings, feedback, and member
+                    library. Cancel online on your schedule.
                   </CardDescription>
                 </div>
-                <div className="flex items-end gap-2">
-                  <span className="text-5xl font-semibold tracking-tight tabular-nums">
-                    {formatOfferPrice()}
-                  </span>
-                  <span className="pb-1 text-sm text-background/60">/{billingInterval.period}</span>
+                <div>
+                  <div className="flex items-end gap-2">
+                    <span className="font-mono text-6xl font-semibold tracking-[-0.06em] text-primary tabular-nums sm:text-7xl">
+                      {formatOfferPrice()}
+                    </span>
+                    <span className="pb-2 text-sm text-muted-foreground">
+                      /{billingInterval.period}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm text-muted-foreground">No long-term contract</p>
                 </div>
               </div>
             </CardHeader>
-            <Separator className="bg-background/15" />
-            <CardContent className="grid gap-3 p-7 sm:grid-cols-2 sm:p-9">
-              {OFFER.included.map((item) => (
-                <div key={item} className="flex items-start gap-3 text-sm leading-6">
-                  <Check className="mt-1 size-4 shrink-0" />
-                  <span>{item}</span>
+            <div className="relative grid lg:grid-cols-[1.15fr_0.85fr]">
+              <CardContent className="grid gap-4 p-7 sm:grid-cols-2 sm:p-10 lg:border-r lg:border-primary/15">
+                {OFFER.included.map((item) => (
+                  <div key={item} className="flex items-start gap-3 text-sm leading-6">
+                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/12 text-primary">
+                      <Check className="size-3.5" />
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </CardContent>
+              <CardFooter className="flex-col items-stretch justify-center gap-5 p-7 sm:p-10">
+                <div>
+                  <p className="font-semibold">Try the full room for seven days.</p>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    Secure checkout takes less than a minute. Your Discord invitation appears after
+                    payment.
+                  </p>
                 </div>
-              ))}
-            </CardContent>
-            <CardFooter className="flex-col items-stretch gap-4 border-t border-background/15 p-7 sm:p-9">
-              <CheckoutForm fullWidth />
-              <p className="text-center text-xs text-background/60">{getOfferTermsSummary()}</p>
-            </CardFooter>
+                <CheckoutForm
+                  fullWidth
+                  className="h-14 rounded-xl text-base shadow-xl shadow-primary/20 hover:-translate-y-0.5"
+                />
+                <p className="text-center text-xs leading-5 text-muted-foreground">
+                  {getOfferTermsSummary()}
+                </p>
+              </CardFooter>
+            </div>
           </Card>
-          <p className="mt-5 text-sm leading-6 text-muted-foreground">{getOfferRenewalTerms()}</p>
+          <Alert className="mt-5 bg-card/55">
+            <ShieldCheck />
+            <AlertDescription className="leading-6">
+              {getOfferRenewalTerms()} Membership provides education and community access. It does
+              not guarantee trading results.
+            </AlertDescription>
+          </Alert>
         </div>
       </section>
 
       <section id="faq" className={PAGE_SECTION} aria-labelledby="faq-title">
-        <SectionHeading
-          id="faq-title"
-          eyebrow="Frequently asked questions"
-          title="Know the terms before checkout."
-        />
-        <Accordion className="mx-auto max-w-4xl bg-card/80">
-          {FAQ_ITEMS.map((item, index) => (
-            <AccordionItem key={item.question} value={`question-${index + 1}`}>
-              <AccordionTrigger className="text-base">{item.question}</AccordionTrigger>
-              <AccordionContent className="max-w-3xl leading-6 text-muted-foreground">
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </section>
-
-      <section
-        className={`${PAGE_CONTAINER} py-24 text-center sm:py-32`}
-        aria-labelledby="final-cta-title"
-      >
-        <MessageSquareText className="mx-auto mb-6 size-6 text-muted-foreground" />
-        <h2
-          id="final-cta-title"
-          className="mx-auto max-w-4xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl"
-        >
-          Stop chasing alerts. Start learning the decision.
-        </h2>
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
-          Open today&apos;s plan, watch {OFFER.trader.name} explain the market, and review every
-          decision on your schedule.
-        </p>
-        <div className="mt-8 flex justify-center">
-          <CheckoutForm />
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-16">
+          <div className="lg:sticky lg:top-28">
+            <SectionHeading
+              id="faq-title"
+              eyebrow="Frequently asked questions"
+              title="Know the terms before checkout."
+              description="Clear answers to the biggest concerns: schedule fit, real value, cancellation, and risk."
+            />
+            <a
+              href="#pricing"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "h-11 rounded-xl px-5",
+              )}
+            >
+              Review membership
+            </a>
+          </div>
+          <Accordion className="bg-card/80 ring-1 ring-foreground/10">
+            {FAQ_ITEMS.map((item, index) => (
+              <AccordionItem key={item.question} value={`question-${index + 1}`}>
+                <AccordionTrigger className="px-5 py-5 text-left text-base sm:px-6">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="max-w-3xl px-5 pb-6 leading-6 text-muted-foreground sm:px-6">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
-        <p className="mt-4 text-sm text-muted-foreground">{getOfferTermsSummary()}</p>
       </section>
 
-      <Separator />
-      <footer className={`${PAGE_CONTAINER} py-10`}>
-        <p className="max-w-5xl text-xs leading-5 text-muted-foreground">
-          All content is educational and informational only. Trading involves substantial risk,
-          including possible loss of principal. Past performance does not guarantee future results.
-          Examples and identities are illustrative for this fictional prototype.
-        </p>
-      </footer>
+      <section className={`${PAGE_CONTAINER} py-20 sm:py-28`} aria-labelledby="final-cta-title">
+        <Card className="relative overflow-hidden border-primary/25 bg-primary/8 py-0 ring-primary/15">
+          <div className="pointer-events-none absolute top-0 left-1/2 h-64 w-4/5 -translate-x-1/2 rounded-full bg-primary/12 blur-3xl" />
+          <CardContent className="relative px-6 py-16 text-center sm:px-12 sm:py-20">
+            <MessageSquareText className="mx-auto mb-6 size-7 text-primary" />
+            <h2
+              id="final-cta-title"
+              className="mx-auto max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-balance sm:text-6xl"
+            >
+              Stop chasing alerts. Start learning the decision.
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+              Open today&apos;s plan, watch {OFFER.trader.name} explain the market, and review every
+              decision on your schedule.
+            </p>
+            <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <CheckoutForm className="h-14 rounded-xl px-8 text-base shadow-xl shadow-primary/20 hover:-translate-y-0.5" />
+              <a
+                href="#free-breakdown"
+                className={cn(
+                  buttonVariants({ variant: "link", size: "lg" }),
+                  "h-12 text-foreground",
+                )}
+              >
+                Watch a free breakdown first
+              </a>
+            </div>
+            <p className="mt-5 text-sm text-muted-foreground">{getOfferTermsSummary()}</p>
+          </CardContent>
+        </Card>
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }

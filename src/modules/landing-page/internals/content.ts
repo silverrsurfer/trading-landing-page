@@ -104,3 +104,40 @@ export const FAQ_ITEMS = [
       "No. Trading involves substantial risk. The membership helps develop a decision process but cannot guarantee results.",
   },
 ];
+
+export const FOOTER_GROUPS = [
+  {
+    title: "Explore",
+    links: [
+      { label: "What’s inside", href: "#whats-inside" },
+      { label: "How it works", href: "#how-it-works" },
+      { label: "Free breakdown", href: "#free-breakdown" },
+      { label: "Discord preview", href: "#discord-preview" },
+    ],
+  },
+  {
+    title: "Membership",
+    links: [
+      { label: "Meet Mason", href: "#meet-mason" },
+      { label: "Daily schedule", href: "#main-content" },
+      { label: "Pricing", href: "#pricing" },
+      { label: "Join the Discord", href: "#pricing" },
+    ],
+  },
+  {
+    title: "Help & legal",
+    links: [
+      { label: "FAQ", href: "#faq" },
+      { label: "Cancellation", href: "#faq" },
+      { label: "Refund policy", href: "#faq" },
+      { label: "Risk disclosure", href: "#footer-disclaimer" },
+    ],
+  },
+] as const;
+
+export const SOCIAL_LINKS = [
+  { label: "Instagram", href: "https://www.instagram.com/", icon: "instagram" },
+  { label: "Reddit", href: "https://www.reddit.com/", icon: "reddit" },
+  { label: "TikTok", href: "https://www.tiktok.com/", icon: "tiktok" },
+  { label: "YouTube", href: "https://www.youtube.com/", icon: "youtube" },
+] as const;
