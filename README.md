@@ -6,11 +6,12 @@ UX-first Next.js landing page for a fictional US momentum-trading educator. The 
 
 1. Copy `.env.example` values into `.env`.
 2. Set `STRIPE_SECRET_KEY` to a Stripe `sk_test_` key.
-3. Optionally set `DISCORD_INVITE_URL` to test post-payment onboarding.
+3. Set `DISCORD_INVITE_URL` to a private `https://discord.gg/...` or `https://discord.com/...` invite. Production checkout fails closed when this value is missing or invalid.
 4. Run `bun install`.
 5. Run `bun run dev`.
 
 Hosted Stripe Checkout does not require a publishable key. The browser never receives the secret key.
+Checkout sessions apply The Momentum Room colors, type, shape, product copy, renewal terms, and post-payment onboarding message. Stripe redirects paid members to a server-verified confirmation page before revealing `DISCORD_INVITE_URL`.
 
 ## Validation
 

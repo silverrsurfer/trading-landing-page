@@ -1,9 +1,27 @@
 import type Stripe from "stripe";
-import { OFFER, getOfferDeliveryLabel } from "@/modules/offer";
+import { OFFER, getOfferRenewalTerms } from "@/modules/offer";
+import { CHECKOUT_BRAND } from "../constants";
 
 export function buildCheckoutSessionParams(siteUrl: URL): Stripe.Checkout.SessionCreateParams {
   return {
     mode: "subscription",
+    locale: "en",
+    submit_type: "subscribe",
+    branding_settings: {
+      background_color: CHECKOUT_BRAND.backgroundColor,
+      button_color: CHECKOUT_BRAND.buttonColor,
+      display_name: OFFER.membershipName,
+      font_family: CHECKOUT_BRAND.fontFamily,
+      border_style: CHECKOUT_BRAND.borderStyle,
+    },
+    custom_text: {
+      submit: {
+        message: `${getOfferRenewalTerms()} Your private ${OFFER.delivery.platform} invite appears after Stripe confirms payment.`,
+      },
+      after_submit: {
+        message: `Payment received. We are confirming your ${OFFER.membershipName} membership and preparing your private ${OFFER.delivery.platform} invite.`,
+      },
+    },
     line_items: [
       {
         quantity: 1,
@@ -13,7 +31,7 @@ export function buildCheckoutSessionParams(siteUrl: URL): Stripe.Checkout.Sessio
           recurring: { interval: OFFER.price.interval },
           product_data: {
             name: OFFER.membershipName,
-            description: `${getOfferDeliveryLabel()} for developing traders focused on ${OFFER.marketFocus}.`,
+            description: `Daily plans, live reasoning, complete recaps, and private ${OFFER.delivery.platform} access for traders learning ${OFFER.marketFocus}.`,
           },
         },
       },

@@ -1,9 +1,11 @@
 import { OFFER } from "@/modules/offer";
 import type { CheckoutConfirmation } from "../types";
 import { buildCheckoutSessionParams, resolveSiteUrl } from "./checkout-session-params";
+import { getDiscordInviteUrl } from "./discord-invite";
 import { getStripeClient } from "./stripe-client";
 
 export async function createSubscriptionCheckout(requestUrl: string) {
+  getDiscordInviteUrl();
   const siteUrl = resolveSiteUrl(requestUrl);
   const session = await getStripeClient().checkout.sessions.create(
     buildCheckoutSessionParams(siteUrl),

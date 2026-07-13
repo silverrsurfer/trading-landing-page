@@ -1,4 +1,4 @@
-import { getCheckoutConfirmation } from "@/modules/checkout";
+import { getCheckoutConfirmation, getDiscordInviteUrl } from "@/modules/checkout";
 import { OFFER } from "@/modules/offer";
 import { ResultPage } from "@/modules/ui";
 
@@ -36,17 +36,17 @@ export default async function CheckoutSuccessPage({ searchParams }: CheckoutSucc
     );
   }
 
-  const discordInviteUrl = process.env.DISCORD_INVITE_URL;
+  const discordInviteUrl = getDiscordInviteUrl();
 
   return (
     <ResultPage
       severity="success"
-      eyebrow="Test payment confirmed"
+      eyebrow="Payment confirmed"
       title={`Welcome to ${OFFER.membershipName}.`}
       description={
         discordInviteUrl
           ? `Stripe confirmed the membership${outcome.confirmation.customerEmail ? ` for ${outcome.confirmation.customerEmail}` : ""}. Continue to ${OFFER.delivery.platform} to finish onboarding.`
-          : `Stripe confirmed the sandbox membership. Add DISCORD_INVITE_URL to connect the final ${OFFER.delivery.platform} onboarding step.`
+          : `Stripe confirmed the sandbox membership. Configure the private ${OFFER.delivery.platform} invite to complete onboarding.`
       }
       primaryAction={
         discordInviteUrl
