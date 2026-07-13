@@ -35,7 +35,6 @@ import {
   getOfferScheduleItems,
   getOfferTermsSummary,
 } from "@/modules/offer";
-import heroTraderImage from "../../../../imgs/hero-img-trader.jpg";
 import masonPortrait from "../../../../imgs/demo-trader.jpg";
 import {
   BREAKDOWN_VIDEO,
@@ -49,11 +48,13 @@ import { CTA_BUTTON_CLASS, PAGE_CONTAINER, PAGE_SECTION } from "./constants";
 import { CardAccentGlow } from "./components/card-accent-glow";
 import { CheckoutForm } from "./components/checkout-form";
 import { FreeBreakdownLink } from "./components/free-breakdown-link";
+import { HeroBackground } from "./components/hero-background";
 import { MobileStickyCheckout } from "./components/mobile-sticky-checkout";
 import { PriceLockup } from "./components/price-lockup";
 import { SectionHeading } from "./components/section-heading";
 import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
+import { WorkflowStepCard } from "./components/workflow-step-card";
 
 export function LandingPage() {
   const billingInterval = getOfferBillingIntervalCopy();
@@ -78,21 +79,10 @@ export function LandingPage() {
 
       <section
         id="main-content"
-        className="relative isolate overflow-hidden border-b"
+        className="relative isolate overflow-hidden"
         aria-labelledby="hero-title"
       >
-        <div className="absolute inset-0 -z-10" aria-hidden="true">
-          <Image
-            src={heroTraderImage}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[64%_center] opacity-75"
-          />
-          <div className="absolute inset-0 bg-linear-to-b from-background/15 via-background/45 to-background" />
-          <div className="absolute inset-0 bg-linear-to-r from-background/95 via-background/65 to-background/5" />
-        </div>
+        <HeroBackground />
 
         <div className={`${PAGE_CONTAINER} relative z-10 py-12 sm:py-16 lg:py-20`}>
           <div className="flex min-h-[25rem] items-center lg:min-h-[30rem]">
@@ -177,17 +167,12 @@ export function LandingPage() {
           title="Know what to watch, what confirms the trade, and what makes it wrong."
           description="The membership organizes preparation, live decisions, review, and feedback around one repeatable process."
         />
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
           {WORKFLOW_STEPS.map((step) => (
-            <Card key={step.title} className="bg-card/80">
-              <CardHeader>
-                <CardTitle className="text-xl">{step.title}</CardTitle>
-                <CardDescription className="max-w-xl leading-6">{step.description}</CardDescription>
-              </CardHeader>
-            </Card>
+            <WorkflowStepCard key={step.title} {...step} />
           ))}
         </div>
-        <Card className="relative mt-6 overflow-hidden border-primary/20 bg-primary/6 py-0 shadow-xl shadow-primary/5 ring-primary/15">
+        <Card className="relative mt-8 overflow-hidden border-primary/20 bg-primary/6 py-0 shadow-xl shadow-primary/5 ring-primary/15">
           <CardAccentGlow />
           <CardContent className="relative flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
