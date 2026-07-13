@@ -51,10 +51,12 @@ import { FreeBreakdownLink } from "./components/free-breakdown-link";
 import { HeroBackground } from "./components/hero-background";
 import { MobileStickyCheckout } from "./components/mobile-sticky-checkout";
 import { PriceLockup } from "./components/price-lockup";
+import { SectionCtaCard } from "./components/section-cta-card";
+import { SectionDetailCard } from "./components/section-detail-card";
 import { SectionHeading } from "./components/section-heading";
+import { SectionSeparator } from "./components/section-separator";
 import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
-import { WorkflowStepCard } from "./components/workflow-step-card";
 
 export function LandingPage() {
   const billingInterval = getOfferBillingIntervalCopy();
@@ -109,9 +111,13 @@ export function LandingPage() {
 
           <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
             {getOfferScheduleItems().map((item) => (
-              <Card key={item.label} size="sm" className="bg-card/75 backdrop-blur-md">
-                <CardHeader>
-                  <Clock3 className="mb-3 size-4 text-muted-foreground" />
+              <Card
+                key={item.label}
+                size="sm"
+                className="min-h-32 justify-center bg-card/75 backdrop-blur-md sm:min-h-36"
+              >
+                <CardHeader className="gap-2 px-5 sm:px-6">
+                  <Clock3 className="mb-1 size-4 text-muted-foreground" />
                   <CardTitle className="font-mono text-sm tabular-nums">{item.time}</CardTitle>
                   <CardDescription>{item.label}</CardDescription>
                 </CardHeader>
@@ -123,7 +129,7 @@ export function LandingPage() {
 
       <MobileStickyCheckout />
 
-      <section className={`${PAGE_CONTAINER} pt-16 sm:pt-20`} aria-labelledby="proof-title">
+      <section className={`${PAGE_CONTAINER} pt-8 sm:pt-12 lg:pt-8`} aria-labelledby="proof-title">
         <Card className="overflow-hidden border-primary/20 bg-card/85 py-0 ring-primary/10">
           <CardContent className="grid gap-10 p-7 sm:p-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:p-12">
             <div>
@@ -160,6 +166,8 @@ export function LandingPage() {
         </Card>
       </section>
 
+      <SectionSeparator />
+
       <section id="whats-inside" className={PAGE_SECTION} aria-labelledby="workflow-title">
         <SectionHeading
           id="workflow-title"
@@ -169,23 +177,16 @@ export function LandingPage() {
         />
         <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
           {WORKFLOW_STEPS.map((step) => (
-            <WorkflowStepCard key={step.title} {...step} />
+            <SectionDetailCard key={step.title} {...step} />
           ))}
         </div>
-        <Card className="relative mt-8 overflow-hidden border-primary/20 bg-primary/6 py-0 shadow-xl shadow-primary/5 ring-primary/15">
-          <CardAccentGlow />
-          <CardContent className="relative flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <p className="text-lg font-semibold">Start with today’s plan, not another alert.</p>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-                Get immediate access to the latest replay, the daily watchlist, and the complete
-                member library.
-              </p>
-            </div>
-            <CheckoutForm className={cn(CTA_BUTTON_CLASS, "shadow-lg shadow-primary/20")} />
-          </CardContent>
-        </Card>
+        <SectionCtaCard
+          title="Start with today’s plan, not another alert."
+          description="Get immediate access to the latest replay, the daily watchlist, and the complete member library."
+        />
       </section>
+
+      <SectionSeparator />
 
       <section id="free-breakdown" className={PAGE_SECTION} aria-labelledby="breakdown-title">
         <Card className="grid gap-0 overflow-hidden bg-card/90 py-0 lg:grid-cols-[1.25fr_0.75fr]">
@@ -242,22 +243,30 @@ export function LandingPage() {
         </Card>
       </section>
 
+      <SectionSeparator />
+
       <section id="discord-preview" className={PAGE_SECTION} aria-labelledby="discord-title">
         <SectionHeading
           id="discord-title"
           title="Everything has a place. Nothing important gets buried in chat."
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
           {CHANNELS.map((channel) => (
-            <Card key={channel.name} size="sm" className="bg-card/75">
-              <CardHeader>
-                <CardTitle className="font-mono text-sm text-primary">{channel.name}</CardTitle>
-                <CardDescription className="leading-6">{channel.description}</CardDescription>
-              </CardHeader>
-            </Card>
+            <SectionDetailCard
+              key={channel.name}
+              title={channel.name}
+              description={channel.description}
+              titleClassName="font-mono text-base text-primary"
+            />
           ))}
         </div>
+        <SectionCtaCard
+          title="See the room structure before you join."
+          description="Review where the daily plan, live analysis, recaps, feedback, and member discussion each belong."
+        />
       </section>
+
+      <SectionSeparator />
 
       <section id="how-it-works" className={PAGE_SECTION} aria-labelledby="method-title">
         <SectionHeading
@@ -265,18 +274,14 @@ export function LandingPage() {
           title="Prepare. Confirm. Protect. Review."
           description={`The goal is not to copy ${OFFER.trader.name}. It is to understand the process well enough to make your own decisions.`}
         />
-        <div className="grid overflow-hidden rounded-3xl border bg-card/70 md:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {METHOD_STEPS.map(([title, description]) => (
-            <article
-              key={title}
-              className="border-b p-6 last:border-b-0 md:border-r md:border-b-0 md:last:border-r-0"
-            >
-              <h3 className="text-lg font-medium">{title}</h3>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
-            </article>
+            <SectionDetailCard key={title} title={title} description={description} />
           ))}
         </div>
       </section>
+
+      <SectionSeparator />
 
       <section id="meet-mason" className={PAGE_SECTION} aria-labelledby="mason-title">
         <Card className="overflow-hidden bg-card/90 py-0">
@@ -330,6 +335,8 @@ export function LandingPage() {
           </CardContent>
         </Card>
       </section>
+
+      <SectionSeparator />
 
       <section id="pricing" className={PAGE_SECTION} aria-labelledby="pricing-title">
         <div className="mx-auto max-w-5xl">
@@ -394,6 +401,8 @@ export function LandingPage() {
         </div>
       </section>
 
+      <SectionSeparator />
+
       <section id="faq" className={PAGE_SECTION} aria-labelledby="faq-title">
         <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-16">
           <div className="lg:sticky lg:top-28">
@@ -428,7 +437,9 @@ export function LandingPage() {
         </div>
       </section>
 
-      <section className={`${PAGE_CONTAINER} py-20 sm:py-28`} aria-labelledby="final-cta-title">
+      <SectionSeparator />
+
+      <section className={`${PAGE_CONTAINER} pb-20 sm:pb-28`} aria-labelledby="final-cta-title">
         <Card className="relative overflow-hidden border-primary/25 bg-primary/8 py-0 ring-primary/15">
           <div className="pointer-events-none absolute top-0 left-1/2 h-64 w-4/5 -translate-x-1/2 rounded-full bg-primary/12 blur-3xl" />
           <CardContent className="relative px-6 py-16 text-center sm:px-12 sm:py-20">

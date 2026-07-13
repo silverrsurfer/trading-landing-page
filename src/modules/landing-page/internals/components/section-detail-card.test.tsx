@@ -1,10 +1,10 @@
 import { expect, test } from "bun:test";
 import { renderToStaticMarkup } from "react-dom/server";
-import { WorkflowStepCard } from "./workflow-step-card";
+import { SectionDetailCard } from "./section-detail-card";
 
-test("gives each workflow step enough vertical space", () => {
+test("gives section details one shared card size", () => {
   const markup = renderToStaticMarkup(
-    <WorkflowStepCard title="Before the market: prepare" description="Open the daily plan." />,
+    <SectionDetailCard title="Before the market: prepare" description="Open the daily plan." />,
   );
 
   expect(markup).toContain("min-h-40");
