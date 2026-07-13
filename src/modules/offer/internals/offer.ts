@@ -134,5 +134,5 @@ export function getOfferScheduleItems() {
 }
 
 export function getOfferTermsSummary() {
-  return `${getOfferBillingLabel()} · ${OFFER.accessLabel} · ${getOfferCancellationLabel()} · ${getOfferGuaranteeLabel()}`;
+  return `${getOfferBillingLabel()}. ${OFFER.accessLabel}. ${getOfferCancellationLabel()}. ${getOfferGuaranteeLabel()}.`;
 }

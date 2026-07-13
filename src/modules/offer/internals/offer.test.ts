@@ -20,6 +20,7 @@ describe("offer source of truth", () => {
     expect(formatOfferPrice()).toBe(expectedPrice);
     expect(getOfferBillingLabel()).toBe(`${expectedPrice}/${OFFER.price.interval}`);
     expect(getOfferTermsSummary()).toContain(getOfferBillingLabel());
+    expect(getOfferTermsSummary()).not.toContain("·");
   });
 
   test("derives customer-facing policy copy from the configured terms", () => {

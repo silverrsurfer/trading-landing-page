@@ -5,7 +5,6 @@ import {
   CircleAlert,
   Clock3,
   ExternalLink,
-  Hash,
   History,
   MessageSquareText,
   PlayCircle,
@@ -59,7 +58,7 @@ export function LandingPage() {
   const deliveryLabel = getOfferDeliveryLabel();
 
   return (
-    <main id="top" className="min-h-[100dvh] overflow-hidden pb-24 sm:pb-0">
+    <main id="top" className="min-h-[100dvh] overflow-x-clip pb-24 sm:pb-0">
       <a
         href="#main-content"
         className="fixed top-3 left-3 z-50 -translate-y-20 rounded-lg bg-primary px-4 py-2 text-sm text-primary-foreground focus:translate-y-0"
@@ -110,7 +109,7 @@ export function LandingPage() {
                 full-time job.
               </p>
               <div id="hero-checkout" className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
-                <CheckoutForm className="h-12 rounded-xl px-6 text-base shadow-lg shadow-primary/20 hover:-translate-y-0.5" />
+                <CheckoutForm className="h-12 rounded-xl px-6 text-base hover:-translate-y-0.5" />
                 <a
                   href="#free-breakdown"
                   className={cn(
@@ -141,7 +140,7 @@ export function LandingPage() {
 
       <MobileStickyCheckout />
 
-      <section className={`${PAGE_CONTAINER} pb-12 sm:pb-16`} aria-labelledby="proof-title">
+      <section className={`${PAGE_CONTAINER} pt-16 sm:pt-20`} aria-labelledby="proof-title">
         <Card className="overflow-hidden border-primary/20 bg-card/85 py-0 ring-primary/10">
           <CardContent className="grid gap-10 p-7 sm:p-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:p-12">
             <div>
@@ -186,12 +185,9 @@ export function LandingPage() {
           description="The membership organizes preparation, live decisions, review, and feedback around one repeatable process."
         />
         <div className="grid gap-4 md:grid-cols-2">
-          {WORKFLOW_STEPS.map((step, index) => (
+          {WORKFLOW_STEPS.map((step) => (
             <Card key={step.title} className="bg-card/80">
               <CardHeader>
-                <Badge variant="secondary" className="mb-4 font-mono">
-                  0{index + 1}
-                </Badge>
                 <CardTitle className="text-xl">{step.title}</CardTitle>
                 <CardDescription className="max-w-xl leading-6">{step.description}</CardDescription>
               </CardHeader>
@@ -207,14 +203,14 @@ export function LandingPage() {
                 member library.
               </p>
             </div>
-            <CheckoutForm className="h-12 rounded-xl px-6 text-base shadow-lg shadow-primary/20" />
+            <CheckoutForm className="h-12 rounded-xl px-6 text-base hover:-translate-y-0.5" />
           </CardContent>
         </Card>
       </section>
 
       <section id="free-breakdown" className={PAGE_SECTION} aria-labelledby="breakdown-title">
         <Card className="grid gap-0 overflow-hidden bg-card/90 py-0 lg:grid-cols-[1.25fr_0.75fr]">
-          <div className="flex min-h-72 items-center bg-black lg:min-h-full">
+          <div className="flex min-h-72 items-center bg-background lg:min-h-full">
             <iframe
               src={BREAKDOWN_VIDEO.embedUrl}
               title={BREAKDOWN_VIDEO.title}
@@ -270,15 +266,13 @@ export function LandingPage() {
       <section id="discord-preview" className={PAGE_SECTION} aria-labelledby="discord-title">
         <SectionHeading
           id="discord-title"
-          eyebrow="See what you are paying for"
           title="Everything has a place. Nothing important gets buried in chat."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CHANNELS.map((channel) => (
             <Card key={channel.name} size="sm" className="bg-card/75">
               <CardHeader>
-                <Hash className="mb-3 size-4 text-muted-foreground" />
-                <CardTitle className="font-mono text-sm">{channel.name}</CardTitle>
+                <CardTitle className="font-mono text-sm text-primary">{channel.name}</CardTitle>
                 <CardDescription className="leading-6">{channel.description}</CardDescription>
               </CardHeader>
             </Card>
@@ -289,15 +283,16 @@ export function LandingPage() {
       <section id="how-it-works" className={PAGE_SECTION} aria-labelledby="method-title">
         <SectionHeading
           id="method-title"
-          eyebrow={`${OFFER.membershipName} process`}
           title="Prepare. Confirm. Protect. Review."
           description={`The goal is not to copy ${OFFER.trader.name}. It is to understand the process well enough to make your own decisions.`}
         />
         <div className="grid overflow-hidden rounded-3xl border bg-card/70 md:grid-cols-4">
-          {METHOD_STEPS.map(([title, description], index) => (
-            <article key={title} className="border-b p-6 last:border-b-0 md:border-r md:border-b-0">
-              <p className="font-mono text-sm text-muted-foreground">0{index + 1}</p>
-              <h3 className="mt-8 text-lg font-medium">{title}</h3>
+          {METHOD_STEPS.map(([title, description]) => (
+            <article
+              key={title}
+              className="border-b p-6 last:border-b-0 md:border-r md:border-b-0 md:last:border-r-0"
+            >
+              <h3 className="text-lg font-medium">{title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{description}</p>
             </article>
           ))}
@@ -352,9 +347,6 @@ export function LandingPage() {
                   examples, trading background, and risk disclosures.
                 </AlertDescription>
               </Alert>
-              <p className="mt-4 text-xs leading-5 text-muted-foreground">
-                The portrait and educator identity are illustrative.
-              </p>
             </div>
           </CardContent>
         </Card>
@@ -365,10 +357,9 @@ export function LandingPage() {
           <SectionHeading
             id="pricing-title"
             eyebrow={`Simple ${billingInterval.adjective} membership`}
-            title={`The complete ${OFFER.membershipName} for ${formatOfferPrice()} per ${billingInterval.period}.`}
+            title={`Join ${OFFER.membershipName} for ${formatOfferPrice()} per ${billingInterval.period}.`}
           />
-          <Card className="relative overflow-hidden border-primary/30 bg-card/95 py-0 shadow-2xl shadow-black/30 ring-1 ring-primary/15">
-            <div className="pointer-events-none absolute -top-32 right-0 size-80 rounded-full bg-primary/10 blur-3xl" />
+          <Card className="relative overflow-hidden border-primary/30 bg-card/95 py-0 shadow-xl shadow-primary/5 ring-1 ring-primary/15">
             <CardHeader className="relative border-b border-primary/15 p-7 sm:p-10">
               <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
                 <div>
@@ -415,7 +406,7 @@ export function LandingPage() {
                 </div>
                 <CheckoutForm
                   fullWidth
-                  className="h-14 rounded-xl text-base shadow-xl shadow-primary/20 hover:-translate-y-0.5"
+                  className="h-14 rounded-xl text-base hover:-translate-y-0.5"
                 />
                 <p className="text-center text-xs leading-5 text-muted-foreground">
                   {getOfferTermsSummary()}
@@ -469,12 +460,11 @@ export function LandingPage() {
 
       <section className={`${PAGE_CONTAINER} py-20 sm:py-28`} aria-labelledby="final-cta-title">
         <Card className="relative overflow-hidden border-primary/25 bg-primary/8 py-0 ring-primary/15">
-          <div className="pointer-events-none absolute top-0 left-1/2 h-64 w-4/5 -translate-x-1/2 rounded-full bg-primary/12 blur-3xl" />
           <CardContent className="relative px-6 py-16 text-center sm:px-12 sm:py-20">
             <MessageSquareText className="mx-auto mb-6 size-7 text-primary" />
             <h2
               id="final-cta-title"
-              className="mx-auto max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-balance sm:text-6xl"
+              className="mx-auto max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-balance sm:text-5xl"
             >
               Stop chasing alerts. Start learning the decision.
             </h2>
@@ -483,7 +473,7 @@ export function LandingPage() {
               decision on your schedule.
             </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <CheckoutForm className="h-14 rounded-xl px-8 text-base shadow-xl shadow-primary/20 hover:-translate-y-0.5" />
+              <CheckoutForm className="h-14 rounded-xl px-8 text-base hover:-translate-y-0.5" />
               <a
                 href="#free-breakdown"
                 className={cn(
@@ -491,7 +481,7 @@ export function LandingPage() {
                   "h-12 text-foreground",
                 )}
               >
-                Watch a free breakdown first
+                Watch a free breakdown
               </a>
             </div>
             <p className="mt-5 text-sm text-muted-foreground">{getOfferTermsSummary()}</p>

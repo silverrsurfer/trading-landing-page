@@ -34,7 +34,7 @@ export function MobileStickyCheckout() {
         <CardContent className="p-3">
           <CheckoutForm fullWidth />
           <p className="mt-2 text-center text-xs text-muted-foreground">
-            {getOfferBillingLabel()} · Test mode
+            {getOfferBillingLabel()}. Test checkout.
           </p>
         </CardContent>
       </Card>
