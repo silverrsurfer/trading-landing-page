@@ -7,7 +7,6 @@ import {
   ExternalLink,
   History,
   MessageSquareText,
-  PlayCircle,
   ShieldCheck,
 } from "lucide-react";
 import {
@@ -46,8 +45,9 @@ import {
   PROOF_ITEMS,
   WORKFLOW_STEPS,
 } from "./content";
-import { PAGE_CONTAINER, PAGE_SECTION } from "./constants";
+import { CTA_BUTTON_CLASS, PAGE_CONTAINER, PAGE_SECTION } from "./constants";
 import { CheckoutForm } from "./components/checkout-form";
+import { FreeBreakdownLink } from "./components/free-breakdown-link";
 import { MobileStickyCheckout } from "./components/mobile-sticky-checkout";
 import { SectionHeading } from "./components/section-heading";
 import { SiteFooter } from "./components/site-footer";
@@ -109,17 +109,8 @@ export function LandingPage() {
                 full-time job.
               </p>
               <div id="hero-checkout" className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
-                <CheckoutForm className="h-12 rounded-xl px-6 text-base hover:-translate-y-0.5" />
-                <a
-                  href="#free-breakdown"
-                  className={cn(
-                    buttonVariants({ variant: "outline", size: "lg" }),
-                    "h-12 rounded-xl px-6 text-base hover:-translate-y-0.5",
-                  )}
-                >
-                  <PlayCircle data-icon="inline-start" />
-                  Watch a free breakdown
-                </a>
+                <CheckoutForm className={CTA_BUTTON_CLASS} />
+                <FreeBreakdownLink />
               </div>
             </div>
           </div>
@@ -203,7 +194,7 @@ export function LandingPage() {
                 member library.
               </p>
             </div>
-            <CheckoutForm className="h-12 rounded-xl px-6 text-base hover:-translate-y-0.5" />
+            <CheckoutForm className={cn(CTA_BUTTON_CLASS, "shadow-lg shadow-primary/20")} />
           </CardContent>
         </Card>
       </section>
@@ -460,6 +451,7 @@ export function LandingPage() {
 
       <section className={`${PAGE_CONTAINER} py-20 sm:py-28`} aria-labelledby="final-cta-title">
         <Card className="relative overflow-hidden border-primary/25 bg-primary/8 py-0 ring-primary/15">
+          <div className="pointer-events-none absolute top-0 left-1/2 h-64 w-4/5 -translate-x-1/2 rounded-full bg-primary/12 blur-3xl" />
           <CardContent className="relative px-6 py-16 text-center sm:px-12 sm:py-20">
             <MessageSquareText className="mx-auto mb-6 size-7 text-primary" />
             <h2
@@ -473,16 +465,8 @@ export function LandingPage() {
               decision on your schedule.
             </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <CheckoutForm className="h-14 rounded-xl px-8 text-base hover:-translate-y-0.5" />
-              <a
-                href="#free-breakdown"
-                className={cn(
-                  buttonVariants({ variant: "link", size: "lg" }),
-                  "h-12 text-foreground",
-                )}
-              >
-                Watch a free breakdown
-              </a>
+              <CheckoutForm className={CTA_BUTTON_CLASS} />
+              <FreeBreakdownLink />
             </div>
             <p className="mt-5 text-sm text-muted-foreground">{getOfferTermsSummary()}</p>
           </CardContent>

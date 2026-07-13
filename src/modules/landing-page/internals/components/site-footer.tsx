@@ -14,7 +14,7 @@ const SOCIAL_ICONS = {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t bg-card/35">
+    <footer className="border-t bg-card">
       <div className={`${PAGE_CONTAINER} py-14 sm:py-18`}>
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div>
