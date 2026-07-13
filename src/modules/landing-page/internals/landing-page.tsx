@@ -46,9 +46,11 @@ import {
   WORKFLOW_STEPS,
 } from "./content";
 import { CTA_BUTTON_CLASS, PAGE_CONTAINER, PAGE_SECTION } from "./constants";
+import { CardAccentGlow } from "./components/card-accent-glow";
 import { CheckoutForm } from "./components/checkout-form";
 import { FreeBreakdownLink } from "./components/free-breakdown-link";
 import { MobileStickyCheckout } from "./components/mobile-sticky-checkout";
+import { PriceLockup } from "./components/price-lockup";
 import { SectionHeading } from "./components/section-heading";
 import { SiteFooter } from "./components/site-footer";
 import { SiteHeader } from "./components/site-header";
@@ -185,8 +187,9 @@ export function LandingPage() {
             </Card>
           ))}
         </div>
-        <Card className="mt-6 border-primary/20 bg-primary/6 py-0 ring-primary/15">
-          <CardContent className="flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+        <Card className="relative mt-6 overflow-hidden border-primary/20 bg-primary/6 py-0 shadow-xl shadow-primary/5 ring-primary/15">
+          <CardAccentGlow />
+          <CardContent className="relative flex flex-col gap-6 p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <p className="text-lg font-semibold">Start with today’s plan, not another alert.</p>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
@@ -351,8 +354,9 @@ export function LandingPage() {
             title={`Join ${OFFER.membershipName} for ${formatOfferPrice()} per ${billingInterval.period}.`}
           />
           <Card className="relative overflow-hidden border-primary/30 bg-card/95 py-0 shadow-xl shadow-primary/5 ring-1 ring-primary/15">
+            <CardAccentGlow />
             <CardHeader className="relative border-b border-primary/15 p-7 sm:p-10">
-              <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
                   <Badge className="mb-5">Built for part-time traders</Badge>
                   <CardTitle className="text-2xl font-semibold sm:text-3xl">
@@ -363,17 +367,7 @@ export function LandingPage() {
                     library. Cancel online on your schedule.
                   </CardDescription>
                 </div>
-                <div>
-                  <div className="flex items-end gap-2">
-                    <span className="font-mono text-6xl font-semibold tracking-[-0.06em] text-primary tabular-nums sm:text-7xl">
-                      {formatOfferPrice()}
-                    </span>
-                    <span className="pb-2 text-sm text-muted-foreground">
-                      /{billingInterval.period}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm text-muted-foreground">No long-term contract</p>
-                </div>
+                <PriceLockup price={formatOfferPrice()} period={billingInterval.period} />
               </div>
             </CardHeader>
             <div className="relative grid lg:grid-cols-[1.15fr_0.85fr]">
