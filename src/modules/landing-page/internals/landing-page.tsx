@@ -1,8 +1,12 @@
+import Image from "next/image";
 import {
+  BookOpenCheck,
   Check,
   CircleAlert,
   Clock3,
+  ExternalLink,
   Hash,
+  History,
   MessageSquareText,
   PlayCircle,
   ShieldCheck,
@@ -14,8 +18,6 @@ import {
   AccordionTrigger,
   Alert,
   AlertDescription,
-  Avatar,
-  AvatarFallback,
   Badge,
   buttonVariants,
   Card,
@@ -35,11 +37,18 @@ import {
   getOfferScheduleItems,
   getOfferTermsSummary,
 } from "@/modules/offer";
-import { CHANNELS, FAQ_ITEMS, METHOD_STEPS, PROOF_ITEMS, WORKFLOW_STEPS } from "./content";
+import heroTraderImage from "../../../../imgs/hero-img-trader.jpg";
+import masonPortrait from "../../../../imgs/demo-trader.jpg";
+import {
+  BREAKDOWN_VIDEO,
+  CHANNELS,
+  FAQ_ITEMS,
+  METHOD_STEPS,
+  PROOF_ITEMS,
+  WORKFLOW_STEPS,
+} from "./content";
 import { PAGE_CONTAINER, PAGE_SECTION } from "./constants";
 import { CheckoutForm } from "./components/checkout-form";
-import { DiscordPreview } from "./components/discord-preview";
-import { FreeBreakdownDialog } from "./components/free-breakdown-dialog";
 import { MobileStickyCheckout } from "./components/mobile-sticky-checkout";
 import { SectionHeading } from "./components/section-heading";
 import { SiteFooter } from "./components/site-footer";
@@ -50,7 +59,7 @@ export function LandingPage() {
   const deliveryLabel = getOfferDeliveryLabel();
 
   return (
-    <main id="top" className="min-h-screen overflow-hidden pb-24 sm:pb-0">
+    <main id="top" className="min-h-[100dvh] overflow-hidden pb-24 sm:pb-0">
       <a
         href="#main-content"
         className="fixed top-3 left-3 z-50 -translate-y-20 rounded-lg bg-primary px-4 py-2 text-sm text-primary-foreground focus:translate-y-0"
@@ -61,88 +70,112 @@ export function LandingPage() {
       <Alert className="rounded-none border-x-0 border-t-0 bg-muted/80 py-2 text-center">
         <CircleAlert className="hidden sm:block" />
         <AlertDescription className="text-xs sm:text-sm">
-          Fictional prototype · Stripe test mode · No real charges
+          Fictional prototype. Stripe test mode. No real charges.
         </AlertDescription>
       </Alert>
       <SiteHeader />
 
       <section
         id="main-content"
-        className={`${PAGE_CONTAINER} relative py-16 sm:py-24 lg:py-32`}
+        className="relative isolate overflow-hidden border-b"
         aria-labelledby="hero-title"
       >
-        <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
-          <div>
-            <Badge variant="outline" className="mb-6 border-primary/25 bg-primary/8 text-primary">
-              Paid {deliveryLabel} for developing stock traders
-            </Badge>
-            <h1
-              id="hero-title"
-              className="max-w-4xl text-5xl leading-[0.98] font-semibold tracking-[-0.055em] text-balance sm:text-6xl lg:text-7xl"
-            >
-              Watch the plan. See the trade. Learn the process.
-            </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-              Join {OFFER.trader.name}&apos;s {deliveryLabel} for a momentum watchlist, live trade
-              explanations, risk-first breakdowns, and trade recaps—even when work keeps you away
-              from the market.
-            </p>
-            <div id="hero-checkout" className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
-              <CheckoutForm className="h-12 rounded-xl px-6 text-base shadow-lg shadow-primary/20 hover:-translate-y-0.5" />
-              <a
-                href="#free-breakdown"
-                className={cn(
-                  buttonVariants({ variant: "outline", size: "lg" }),
-                  "h-12 rounded-xl px-6 text-base hover:-translate-y-0.5",
-                )}
-              >
-                <PlayCircle data-icon="inline-start" />
-                Watch a free breakdown
-              </a>
-            </div>
-            <p className="mt-4 text-sm text-muted-foreground">{getOfferTermsSummary()}</p>
-            <div className="mt-8 flex max-w-xl items-start gap-3 border-l-2 pl-4 text-sm leading-6 text-muted-foreground">
-              <ShieldCheck className="mt-0.5 size-4 shrink-0" />
-              <p>Education and community support. No guaranteed returns or unexplained alerts.</p>
-            </div>
-          </div>
-          <DiscordPreview />
+        <div className="absolute inset-0 -z-10" aria-hidden="true">
+          <Image
+            src={heroTraderImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[64%_center] opacity-75"
+          />
+          <div className="absolute inset-0 bg-linear-to-b from-background/15 via-background/45 to-background" />
+          <div className="absolute inset-0 bg-linear-to-r from-background/95 via-background/65 to-background/5" />
         </div>
 
-        <div className="mt-16 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {getOfferScheduleItems().map((item) => (
-            <Card key={item.label} size="sm" className="bg-card/75">
-              <CardHeader>
-                <Clock3 className="mb-3 size-4 text-muted-foreground" />
-                <CardTitle className="font-mono text-sm tabular-nums">{item.time}</CardTitle>
-                <CardDescription>{item.label}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
+        <div className={`${PAGE_CONTAINER} relative z-10 py-12 sm:py-16 lg:py-20`}>
+          <div className="flex min-h-[25rem] items-center lg:min-h-[30rem]">
+            <div className="max-w-2xl">
+              <Badge variant="outline" className="mb-6 border-primary/25 bg-primary/8 text-primary">
+                Paid {deliveryLabel} for developing stock traders
+              </Badge>
+              <h1
+                id="hero-title"
+                className="max-w-3xl text-5xl leading-[0.98] font-semibold tracking-[-0.055em] text-balance sm:text-6xl"
+              >
+                Watch the plan. Learn the decision.
+              </h1>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-muted-foreground sm:text-xl">
+                Daily plans, live reasoning, and complete recaps for traders learning around a
+                full-time job.
+              </p>
+              <div id="hero-checkout" className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
+                <CheckoutForm className="h-12 rounded-xl px-6 text-base shadow-lg shadow-primary/20 hover:-translate-y-0.5" />
+                <a
+                  href="#free-breakdown"
+                  className={cn(
+                    buttonVariants({ variant: "outline", size: "lg" }),
+                    "h-12 rounded-xl px-6 text-base hover:-translate-y-0.5",
+                  )}
+                >
+                  <PlayCircle data-icon="inline-start" />
+                  Watch a free breakdown
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {getOfferScheduleItems().map((item) => (
+              <Card key={item.label} size="sm" className="bg-card/75 backdrop-blur-md">
+                <CardHeader>
+                  <Clock3 className="mb-3 size-4 text-muted-foreground" />
+                  <CardTitle className="font-mono text-sm tabular-nums">{item.time}</CardTitle>
+                  <CardDescription>{item.label}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       <MobileStickyCheckout />
 
-      <section className={`${PAGE_CONTAINER} pb-10`} aria-label="Prototype proof">
-        <Alert className="mb-5 bg-background/80">
-          <CircleAlert />
-          <AlertDescription>
-            Prototype proof claims are illustrative. Production claims must link to verifiable
-            evidence.
-          </AlertDescription>
-        </Alert>
-        <div className="grid overflow-hidden rounded-3xl border bg-card/70 sm:grid-cols-2 lg:grid-cols-4">
-          {PROOF_ITEMS.map((item) => (
-            <div
-              key={item}
-              className="flex items-start gap-3 border-b p-5 last:border-b-0 sm:border-r lg:border-b-0"
-            >
-              <Check className="mt-0.5 size-4 shrink-0" />
-              <p className="text-sm leading-6">{item}</p>
+      <section className={`${PAGE_CONTAINER} pb-12 sm:pb-16`} aria-labelledby="proof-title">
+        <Card className="overflow-hidden border-primary/20 bg-card/85 py-0 ring-primary/10">
+          <CardContent className="grid gap-10 p-7 sm:p-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:p-12">
+            <div>
+              <p className="text-sm font-medium text-primary">Evaluate before joining</p>
+              <h2
+                id="proof-title"
+                className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-balance sm:text-4xl"
+              >
+                Evidence beats screenshots.
+              </h2>
+              <p className="mt-5 max-w-md leading-7 text-muted-foreground">
+                A credible room shows the plan, the full session, the losing days, and the community
+                rules before checkout.
+              </p>
             </div>
-          ))}
-        </div>
+            <div className="grid gap-px overflow-hidden rounded-2xl bg-border sm:grid-cols-2">
+              {PROOF_ITEMS.map((item) => (
+                <div key={item} className="flex min-h-28 items-start gap-3 bg-background/80 p-5">
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/12 text-primary">
+                    <Check className="size-4" />
+                  </span>
+                  <p className="text-sm leading-6">{item}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+          <Alert className="rounded-none border-x-0 border-b-0 bg-muted/55 px-7 sm:px-10 lg:px-12">
+            <CircleAlert />
+            <AlertDescription className="leading-6">
+              Portfolio prototype. The educator, results, and proof points are illustrative. A
+              production version must replace them with dated, verifiable evidence.
+            </AlertDescription>
+          </Alert>
+        </Card>
       </section>
 
       <section id="whats-inside" className={PAGE_SECTION} aria-labelledby="workflow-title">
@@ -180,40 +213,56 @@ export function LandingPage() {
       </section>
 
       <section id="free-breakdown" className={PAGE_SECTION} aria-labelledby="breakdown-title">
-        <Card className="grid gap-0 overflow-hidden bg-card/90 py-0 md:grid-cols-[0.8fr_1.2fr]">
-          <div className="flex min-h-80 items-center justify-center bg-foreground p-8 text-background">
-            <div className="text-center">
-              <PlayCircle className="mx-auto size-16 stroke-[1.2]" />
-              <p className="mt-5 text-xl font-medium">Complete trade breakdown</p>
-              <p className="mt-2 text-sm text-background/65">18 minutes · illustrative lesson</p>
-            </div>
+        <Card className="grid gap-0 overflow-hidden bg-card/90 py-0 lg:grid-cols-[1.25fr_0.75fr]">
+          <div className="flex min-h-72 items-center bg-black lg:min-h-full">
+            <iframe
+              src={BREAKDOWN_VIDEO.embedUrl}
+              title={BREAKDOWN_VIDEO.title}
+              className="aspect-video w-full"
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
           </div>
-          <div className="p-7 sm:p-12">
-            <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-              Inspect the teaching before you pay
-            </p>
+          <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
             <h2
               id="breakdown-title"
-              className="mt-4 text-3xl font-semibold tracking-tight text-balance sm:text-4xl"
+              className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl"
             >
-              See the entire decision—not a profit screenshot.
+              Judge the teaching before you pay.
             </h2>
-            <div className="mt-8 grid gap-4">
+            <p className="mt-5 leading-7 text-muted-foreground">
+              Use the sample to assess the explanation quality, risk framing, and fit with your
+              schedule.
+            </p>
+            <div className="mt-7 grid gap-3">
               {[
-                "Why the stock made the plan",
-                "What confirmed the setup",
-                "Where the idea failed",
-                "What the review changed",
-              ].map((item, index) => (
-                <div key={item} className="flex items-center gap-3 text-sm">
-                  <Badge variant="secondary" className="font-mono tabular-nums">
-                    {index * 4}:00
-                  </Badge>
+                "Does the plan come before the trade?",
+                "Are invalidation and risk explained?",
+                "Can you follow the reasoning after work?",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3 text-sm leading-6">
+                  <Check className="mt-1 size-4 shrink-0 text-primary" />
                   <span>{item}</span>
                 </div>
               ))}
             </div>
-            <FreeBreakdownDialog />
+            <a
+              href={BREAKDOWN_VIDEO.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "mt-8 w-fit rounded-xl",
+              )}
+            >
+              Open on YouTube
+              <ExternalLink data-icon="inline-end" />
+            </a>
+            <p className="mt-4 text-xs leading-5 text-muted-foreground">
+              Third-party sample. Its title and claims are not product evidence.
+            </p>
           </div>
         </Card>
       </section>
@@ -256,34 +305,56 @@ export function LandingPage() {
       </section>
 
       <section id="meet-mason" className={PAGE_SECTION} aria-labelledby="mason-title">
-        <Card className="bg-card/85">
-          <CardContent className="grid gap-8 sm:grid-cols-[auto_1fr] sm:p-5">
-            <Avatar className="size-20">
-              <AvatarFallback className="text-2xl">{OFFER.trader.initials}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-                Learn from the complete record
-              </p>
+        <Card className="overflow-hidden bg-card/90 py-0">
+          <CardContent className="grid p-0 lg:grid-cols-[0.72fr_1.28fr]">
+            <figure className="relative min-h-96 bg-muted lg:min-h-[38rem]">
+              <Image
+                src={masonPortrait}
+                alt="Illustrative portrait of a trading educator at a multi-monitor desk"
+                fill
+                sizes="(min-width: 1024px) 38vw, 100vw"
+                className="object-cover object-center"
+              />
+            </figure>
+            <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-14">
+              <p className="text-sm font-medium text-primary">Meet the educator</p>
               <h2
                 id="mason-title"
-                className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl"
+                className="mt-3 max-w-3xl text-3xl font-semibold tracking-[-0.04em] text-balance sm:text-5xl"
               >
                 The wins show what worked. The losses show whether the process held up.
               </h2>
-              <p className="mt-5 max-w-4xl leading-7 text-muted-foreground">
+              <p className="mt-6 max-w-2xl leading-7 text-muted-foreground">
                 {OFFER.trader.name} is a fictional educator with {OFFER.trader.experienceYears}{" "}
-                years of prototype experience in {OFFER.marketFocus}. A production version must
-                substantiate his identity, experience, and every performance claim with dated
-                evidence.
+                years of prototype experience in {OFFER.marketFocus}. The concept teaches traders to
+                evaluate the reasoning before the outcome.
               </p>
+              <div className="mt-9 grid gap-px overflow-hidden rounded-2xl bg-border sm:grid-cols-2">
+                <div className="bg-background/70 p-5">
+                  <BookOpenCheck className="size-5 text-primary" />
+                  <p className="mt-4 font-medium">Plan before outcome</p>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    Show the thesis, confirmation, and invalidation before discussing the result.
+                  </p>
+                </div>
+                <div className="bg-background/70 p-5">
+                  <History className="size-5 text-primary" />
+                  <p className="mt-4 font-medium">Keep the complete record</p>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    Review wins, losses, rejected setups, and days when no trade was correct.
+                  </p>
+                </div>
+              </div>
               <Alert className="mt-7 bg-muted/70">
                 <ShieldCheck />
                 <AlertDescription>
-                  Production requires verifiable identity, dated full-session examples, trading
-                  background, and a risk and performance disclosure.
+                  Portfolio prototype. Production requires verifiable identity, dated full-session
+                  examples, trading background, and risk disclosures.
                 </AlertDescription>
               </Alert>
+              <p className="mt-4 text-xs leading-5 text-muted-foreground">
+                The portrait and educator identity are illustrative.
+              </p>
             </div>
           </CardContent>
         </Card>

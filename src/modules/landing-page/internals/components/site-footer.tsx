@@ -26,7 +26,7 @@ export function SiteFooter() {
             </a>
             <p className="mt-5 max-w-xs text-sm leading-6 text-muted-foreground">
               A focused trading-day workflow for developing traders who want process, context, and
-              review—not unexplained alerts.
+              review, not unexplained alerts.
             </p>
             <div className="mt-6 flex items-center gap-2" aria-label="Social media">
               {SOCIAL_LINKS.map((social) => {

@@ -15,6 +15,12 @@ export const PROOF_ITEMS = [
   "Moderated community with published rules",
 ];
 
+export const BREAKDOWN_VIDEO = {
+  embedUrl: "https://www.youtube-nocookie.com/embed/DyS79Eb92Ug?rel=0",
+  sourceUrl: "https://www.youtube.com/watch?v=DyS79Eb92Ug",
+  title: "Sample trading breakdown",
+} as const;
+
 export const WORKFLOW_STEPS = [
   {
     title: "Before the market: prepare",
@@ -23,7 +29,7 @@ export const WORKFLOW_STEPS = [
   {
     title: "During the market: watch the decision",
     description:
-      "Hear why a planned setup qualifies, changes, or gets rejected—and how risk is defined before any entry.",
+      "Hear why a planned setup qualifies, changes, or gets rejected, and how risk is defined before any entry.",
   },
   {
     title: "After the market: review the outcome",
