@@ -74,9 +74,7 @@ export function SiteFooter() {
         <Separator className="my-10" />
         <div id="footer-disclaimer" className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
           <p className="max-w-4xl text-xs leading-5 text-muted-foreground">
-            All content is educational and informational only. Trading involves substantial risk,
-            including possible loss of principal. Past performance does not guarantee future
-            results. Examples and identities are illustrative for this fictional prototype.
+            All content is educational and informational only. Trading involves substantial risk.
           </p>
           <p className="text-xs text-muted-foreground">© 2026 {OFFER.membershipName}</p>
         </div>
